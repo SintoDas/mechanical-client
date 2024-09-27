@@ -5,6 +5,7 @@ import FeaturedBrands from "./FeaturedBrands";
 import CustomerReviews from "./CustomerReview";
 import WhyChooseMechanicalKeyboards from "./whyChooseMechanicalKeyboards";
 import CustomizableOptions from "./CustomiZableOptions";
+import FeaturedProducts from "./FeaturedProducts";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       </Helmet>
       <HeroSection></HeroSection>
       <ServiceAdvertisement></ServiceAdvertisement>
+      <FeaturedProducts></FeaturedProducts>
       <FeaturedBrands></FeaturedBrands>
       <CustomerReviews></CustomerReviews>
       <WhyChooseMechanicalKeyboards></WhyChooseMechanicalKeyboards>
