@@ -1,15 +1,18 @@
 import { Outlet } from "react-router-dom";
 import MYNavbar from "../comoponents/ui/MYNavbar";
 
+
 const MainLayout = () => {
   return (
-    <>
-    <div className="max-w-7xl mx-auto p-4 md:p-6  border-gray-200 rounded-lg shadow-sm">
+    <div className="max-w-6xl mx-auto">
+      {/* Navbar section */}
       <MYNavbar />
-      <Outlet />
+
+      {/* Content section to render the Outlet with spacing adjustments */}
+      <div className="mt-10 min-h-[calc(100vh-40px)]">
+        <Outlet />
+      </div>
     </div>
-    </>
-    
   );
 };
 

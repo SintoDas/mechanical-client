@@ -6,20 +6,23 @@ import CustomerReviews from "./CustomerReview";
 import WhyChooseMechanicalKeyboards from "./whyChooseMechanicalKeyboards";
 import CustomizableOptions from "./CustomiZableOptions";
 import FeaturedProducts from "./FeaturedProducts";
+import CustomFooter from "../../comoponents/ui/CustomFooter";
 
 export default function Home() {
   return (
-    <div className="py-5">
+    <>
       <Helmet>
-        <title> Mechanical keyboard | Home</title>
+        <title>Mechanical Keyboard | Home</title>
       </Helmet>
-      <HeroSection></HeroSection>
-      <ServiceAdvertisement></ServiceAdvertisement>
-      <FeaturedProducts></FeaturedProducts>
-      <FeaturedBrands></FeaturedBrands>
-      <CustomerReviews></CustomerReviews>
-      <WhyChooseMechanicalKeyboards></WhyChooseMechanicalKeyboards>
-      <CustomizableOptions></CustomizableOptions>
-    </div>
+      <HeroSection />
+      <ServiceAdvertisement />
+      <FeaturedProducts />
+      <FeaturedBrands />
+      <CustomerReviews />
+      <WhyChooseMechanicalKeyboards />
+      <CustomizableOptions />
+      <CustomFooter></CustomFooter>
+     </>
+
   )
 }

@@ -6,4 +6,5 @@ export interface TProduct {
     price: number;
     image: string;
     rating: number;
+    description:string;
   }
