@@ -1,18 +1,21 @@
 import { Outlet } from "react-router-dom";
 import MYNavbar from "../comoponents/ui/MYNavbar";
-
+import CustomFooter from "../comoponents/ui/CustomFooter";
 
 const MainLayout = () => {
   return (
-    <div className="max-w-6xl mx-auto">
-      {/* Navbar section */}
-      <MYNavbar />
+    <div className="min-h-screen">
+    {/* Navbar */}
+    <MYNavbar />
 
-      {/* Content section to render the Outlet with spacing adjustments */}
-      <div className="mt-10 min-h-[calc(100vh-40px)]">
-        <Outlet />
-      </div>
+    {/* Main Content Area */}
+    <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 py-4">
+      <Outlet />
     </div>
+
+    {/* Footer */}
+    <CustomFooter />
+  </div>
   );
 };
 

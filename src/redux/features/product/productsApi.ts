@@ -1,35 +1,57 @@
 import { baseApi } from "../../api/baseApi";
 
-
 const allProductApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
       query: () => ({
-        url: '/products',
+        url: `/products`, // Fetch all products
         method: 'GET',
       }),
+      // providesTags: ['Products'], // This will allow cache invalidation for product list updates
     }),
+    
     getSingleProduct: builder.query({
       query: (id) => ({
-        url: `/products/${id}`, // Use the product ID to fetch the specific product
+        url: `/products/${id}`, // Fetch a single product by ID
         method: 'GET',
       }),
+      // providesTags: (result, error, id) => [{ type: 'Product', id }], // Cache invalidation for a specific product
     }),
+    
     addProduct: builder.mutation({
       query: (newProduct) => ({
         url: '/products/create-product',
         method: 'POST',
         body: newProduct,
       }),
+      // invalidatesTags: ['Products'], // Invalidate product list after adding
     }),
+    
     updateProduct: builder.mutation({
-      query: ({ id, updatedProduct }) => ({
-        url: `/products/${id}`, // Update the URL as per your API
-        method: 'PUT', // Typically, PUT is used for updates
+      query: ({ id, ...updatedProduct }) => ({
+        url: `/products/${id}`, // Update a product by ID
+        method: 'PUT',
         body: updatedProduct,
       }),
+      // invalidatesTags: (result, error, { id }) => [{ type: 'Product', id }, 'Products'], // Invalidate both the product list and the specific product cache
     }),
-  })
+    
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: `/products/${id}`, // Delete a product by ID
+        method: 'DELETE',
+      }),
+      // invalidatesTags: ['Products'], // Invalidate the product list after deletion
+    }),
+  }),
 });
 
-export const { useGetAllProductsQuery,useAddProductMutation, useGetSingleProductQuery, useUpdateProductMutation } =allProductApi;
+export const {
+  useGetAllProductsQuery,
+  useGetSingleProductQuery,
+  useAddProductMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
+} = allProductApi;
+
+export default allProductApi;

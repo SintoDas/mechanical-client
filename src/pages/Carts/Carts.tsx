@@ -36,14 +36,14 @@ const Carts = () => {
 
   // Check if all items are in stock to enable/disable checkout button
   const checkStockAvailability = (items: CartItem[]) => {
-    const inStock = items.every(item => item.quantity <= item.productId.availableQuantity);
+    const inStock = items.every(item => item.quantity <= item.productId?.availableQuantity);
     setAllInStock(inStock);
   };
 
   // Handle increasing the quantity of a cart item
   const handleIncreaseQuantity = async (item: CartItem) => {
     const newQuantity = item.quantity + 1;
-    if (newQuantity <= item.productId.availableQuantity) {
+    if (newQuantity <= item.productId?.availableQuantity) {
       try {
         // Optimistic UI update
         setCartItems((prevItems) =>
@@ -166,9 +166,9 @@ const Carts = () => {
             {cartItems.map((item) => (
               <div key={item._id} className="flex items-center justify-between p-4 bg-gray-100 rounded shadow-md">
                 <div>
-                  <h2 className="font-semibold">{item.productId.name}</h2>
+                  <h2 className="font-semibold">{item?.productId?.name}</h2>
                   <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
-                  <p className="text-sm text-gray-600">Price: ${(item.productId.price * item.quantity).toFixed(2)}</p>
+                  <p className="text-sm text-gray-600">Price: ${(item?.productId?.price * item.quantity).toFixed(2)}</p>
                   <p className="text-sm text-gray-600">Stock: {item?.productId?.availableQuantity}</p>
                 </div>
                 <div className="flex items-center">
@@ -185,7 +185,7 @@ const Carts = () => {
                     className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
                     aria-label="Increase quantity"
                     onClick={() => handleIncreaseQuantity(item)}
-                    disabled={item.quantity >= item.productId.availableQuantity}
+                    disabled={item.quantity >= item?.productId?.availableQuantity}
                   >
                     +
                   </button>

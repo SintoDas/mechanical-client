@@ -10,7 +10,7 @@ export default function MYNavbar() {
     <Navbar
       fluid
       rounded
-      className="bg-white dark:bg-gray-800 border border-red-600 h-16" // Set navbar height
+      className="bg-white dark:bg-gray-800 border" // Set navbar height
     >
       <Navbar.Brand as={Link} to="/" className="h-full flex items-center">
         <img src={keyboard} className="mr-3 h-8 sm:h-10" alt="Keyboard Logo" /> {/* Adjust logo height */}

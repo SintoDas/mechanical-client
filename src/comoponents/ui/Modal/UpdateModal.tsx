@@ -4,17 +4,20 @@ import { TProduct } from "../../../types";
 import { useUpdateProductMutation } from "../../../redux/features/product/productsApi";
 import axios from "axios";
 import { useEffect } from "react";
+import { toast } from "sonner"; // For toast notifications
 
 interface UpdateModalProps {
   updateModalOpen: boolean;
   setUpdateModalOpen: (open: boolean) => void;
   product: TProduct; // Accept selected product details
+  refetch: () => void; // Accept refetch function from the parent component
 }
 
 export default function UpdateModal({
   updateModalOpen,
   setUpdateModalOpen,
   product,
+  refetch,
 }: UpdateModalProps) {
   const [updateProduct] = useUpdateProductMutation();
 
@@ -23,18 +26,17 @@ export default function UpdateModal({
     handleSubmit,
     formState: { errors },
     setValue,
-    reset, // Reset form to initial values
+    reset,
   } = useForm<TProduct>();
 
   useEffect(() => {
-    // Reset form values when product changes
     if (product) {
       reset({
         title: product.title || "",
-        price: product.price || 0,
+        price: product.price?.toString() || "0", // Convert number to string
         description: product.description || "",
-        availableQuantity: product.availableQuantity || 0,
-        rating: product.rating || 0,
+        availableQuantity: product.availableQuantity?.toString() || "0", // Convert number to string
+        rating: product.rating?.toString() || "0", // Convert number to string
         image: product.image || "",
         brand: product.brand || "",
       });
@@ -51,12 +53,12 @@ export default function UpdateModal({
         formData,
         {
           params: {
-            key: '96f69d1a403cf9d18c0afb2873019c21', // Replace with your ImageBB API Key
+            key: "96f69d1a403cf9d18c0afb2873019c21", // Replace with your ImageBB API Key
           },
         }
       );
 
-      const imageUrl = response.data.data.url; // Get the image URL from the response
+      const imageUrl = response.data.data.url;
       setValue("image", imageUrl); // Set the image URL in the form
     } catch (error) {
       console.error("Image upload failed:", error);
@@ -64,12 +66,22 @@ export default function UpdateModal({
   };
 
   const onSubmit = async (data: TProduct) => {
+    // Convert price, availableQuantity, and rating to numbers
+    const updatedData = {
+      ...data,
+      price: parseFloat(data.price), // Convert price to a number
+      availableQuantity: parseInt(data.availableQuantity), // Convert available quantity to a number
+      rating: parseFloat(data.rating), // Convert rating to a number
+    };
+
     try {
-      const response = await updateProduct({ id: product._id, ...data }).unwrap();
-      console.log("Update Response:", response);
-      setUpdateModalOpen(false); // Close the modal on successful update
+      await updateProduct({ id: product._id, ...updatedData }).unwrap();
+      toast.success(`${product.title} updated successfully!`);
+      setUpdateModalOpen(false); // Close modal after success
+      refetch(); // Refetch product list to show the updated product
     } catch (error) {
       console.error("Update failed:", error);
+      toast.error(`Failed to update ${product.title}`);
     }
   };
 
