@@ -3,11 +3,10 @@ import { baseApi } from "../../api/baseApi";
 const allProductApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: () => ({
-        url: `/products`, // Fetch all products
+      query: ({ searchTerm = "", sort = "price", minPrice = "", maxPrice = "" }) => ({
+        url: `/products?searchTerm=${encodeURIComponent(searchTerm)}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
         method: 'GET',
       }),
-      // providesTags: ['Products'], // This will allow cache invalidation for product list updates
     }),
     
     getSingleProduct: builder.query({

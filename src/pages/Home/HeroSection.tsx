@@ -1,5 +1,6 @@
 import { Button } from 'flowbite-react';
 import keyboardImg2 from '../../assets/keyboard2 (2).jpg';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   return (
@@ -13,6 +14,7 @@ const HeroSection = () => {
           <p className="text-lg md:text-xl text-gray-500 mb-6 p-5">
             Shop the latest trends and enjoy exclusive offers on our premium products.
           </p>
+          <Link to="/products">
           <Button
             gradientMonochrome="green"
             size="lg"
@@ -20,6 +22,7 @@ const HeroSection = () => {
           >
             Shop Now
           </Button>
+          </Link>
         </div>
 
         {/* Right Side Image */}

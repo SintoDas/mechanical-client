@@ -41,9 +41,6 @@ export default function Checkout() {
     
     // Redirect to the success page after placing the order
     window.location.href = '/payment';
-
-    // Optionally, you could update stock in your backend via another API call if needed
-    // This can also be handled in the backend when creating the order
   };
 
   const handleStripeOrder = () => {
@@ -52,10 +49,13 @@ export default function Checkout() {
   };
 
   return (
-    <div className="p-4">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="flex justify-center items-center p-6">
+      <form 
+        onSubmit={handleSubmit(onSubmit)} 
+        className="w-full max-w-lg bg-white p-6 rounded-lg shadow-md"
+      >
         {/* Name Input */}
-        <div className="mb-4">
+        <div className="mb-6">
           <Label htmlFor="name" value="Name" />
           <Controller
             name="name"
@@ -64,15 +64,15 @@ export default function Checkout() {
             rules={{ required: 'Name is required' }}
             render={({ field, fieldState }) => (
               <>
-                <TextInput id="name" {...field} required />
-                {fieldState.invalid && <p className="text-red-500">{fieldState.error?.message}</p>}
+                <TextInput id="name" {...field} className="w-full" required />
+                {fieldState.invalid && <p className="text-red-500 text-sm mt-1">{fieldState.error?.message}</p>}
               </>
             )}
           />
         </div>
 
         {/* Email Input */}
-        <div className="mb-4">
+        <div className="mb-6">
           <Label htmlFor="email" value="Email" />
           <Controller
             name="email"
@@ -87,15 +87,15 @@ export default function Checkout() {
             }}
             render={({ field, fieldState }) => (
               <>
-                <TextInput id="email" type="email" {...field} required />
-                {fieldState.invalid && <p className="text-red-500">{fieldState.error?.message}</p>}
+                <TextInput id="email" type="email" {...field} className="w-full" required />
+                {fieldState.invalid && <p className="text-red-500 text-sm mt-1">{fieldState.error?.message}</p>}
               </>
             )}
           />
         </div>
 
         {/* Phone Input */}
-        <div className="mb-4">
+        <div className="mb-6">
           <Label htmlFor="phone" value="Phone" />
           <Controller
             name="phone"
@@ -104,15 +104,15 @@ export default function Checkout() {
             rules={{ required: 'Phone number is required' }}
             render={({ field, fieldState }) => (
               <>
-                <TextInput id="phone" type="tel" {...field} required />
-                {fieldState.invalid && <p className="text-red-500">{fieldState.error?.message}</p>}
+                <TextInput id="phone" type="tel" {...field} className="w-full" required />
+                {fieldState.invalid && <p className="text-red-500 text-sm mt-1">{fieldState.error?.message}</p>}
               </>
             )}
           />
         </div>
 
         {/* Address Input */}
-        <div className="mb-4">
+        <div className="mb-6">
           <Label htmlFor="address" value="Delivery Address" />
           <Controller
             name="address"
@@ -121,15 +121,15 @@ export default function Checkout() {
             rules={{ required: 'Delivery address is required' }}
             render={({ field, fieldState }) => (
               <>
-                <TextInput id="address" {...field} required />
-                {fieldState.invalid && <p className="text-red-500">{fieldState.error?.message}</p>}
+                <TextInput id="address" {...field} className="w-full" required />
+                {fieldState.invalid && <p className="text-red-500 text-sm mt-1">{fieldState.error?.message}</p>}
               </>
             )}
           />
         </div>
 
         {/* Payment Method Input */}
-        <div className="mb-4">
+        <div className="mb-6">
           <Label value="Payment Method" />
           <Controller
             name="paymentMethod"

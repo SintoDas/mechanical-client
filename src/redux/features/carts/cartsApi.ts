@@ -24,7 +24,7 @@ const cartApi = baseApi.injectEndpoints({
       query: ({ id, quantity }) => ({
         url: `/carts/${id}`,
         method: 'PUT',
-        body: { quantity }, // Send the updated quantity
+        body: { quantity },
       }),
     }),
 
