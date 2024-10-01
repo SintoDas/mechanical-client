@@ -1,12 +1,32 @@
 import { baseApi } from "../../api/baseApi";
+// Define the query argument type
+type GetAllProductsQueryArgs = {
+  searchTerm?: string;
+  sort?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  page?: number;
+  limit?: number;
+};
 
 const allProductApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProducts: builder.query({
-      query: ({ searchTerm = "", sort = "price", minPrice = "", maxPrice = "" }) => ({
-        url: `/products?searchTerm=${encodeURIComponent(searchTerm)}&sort=${sort}&minPrice=${minPrice}&maxPrice=${maxPrice}`,
-        method: 'GET',
-      }),
+    getAllProducts: builder.query<any, GetAllProductsQueryArgs>({
+      query: ({ searchTerm = "", sort = "price", minPrice = 0, maxPrice = Infinity, page = 1, limit = 6 } = {}) => {
+        const params = new URLSearchParams();
+    
+        if (searchTerm) params.append('searchTerm', searchTerm);
+        if (sort) params.append('sort', sort);
+        if (minPrice !== undefined) params.append('minPrice', minPrice.toString());
+        if (maxPrice !== undefined) params.append('maxPrice', maxPrice.toString());
+        params.append('page', page.toString());
+        params.append('limit', limit.toString());
+    
+        return {
+          url: `/products?${params.toString()}`,
+          method: 'GET',
+        };
+      },
     }),
     
     getSingleProduct: builder.query({
