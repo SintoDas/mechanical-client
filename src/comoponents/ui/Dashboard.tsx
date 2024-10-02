@@ -58,7 +58,7 @@ export default function Dashboard() {
           <Table.HeadCell>Actions</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {products?.data.map((product: TProduct) => (
+          {products?.data?.results.map((product: TProduct) => (
             <Table.Row key={product._id}>
               <Table.Cell>{product.title}</Table.Cell>
               <Table.Cell>${product.price}</Table.Cell>

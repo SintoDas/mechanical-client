@@ -39,7 +39,7 @@ const Carts = () => {
 
   const checkStockAvailability = (items: CartItem[]) => {
     const inStock = items.every(
-      (item) => item.quantity <= item.productId.availableQuantity
+      (item) => item?.quantity <= item?.productId?.availableQuantity
     );
     setAllInStock(inStock);
   };
@@ -109,6 +109,22 @@ const Carts = () => {
     }
   };
 
+  // Warning for page refresh if cart is not empty
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (cartItems.length > 0) {
+        event.preventDefault();
+        event.returnValue = ''; // Some browsers require this to show the warning
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [cartItems]);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p className="text-red-500">Error loading cart items.</p>;
 
@@ -127,22 +143,22 @@ const Carts = () => {
               >
                 <div>
                   <h2 className="font-semibold">{item?.productId?.title}</h2>
-                  <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
+                  <p className="text-sm text-gray-600">Quantity: {item?.quantity}</p>
                   <p className="text-sm text-gray-600">Price: ${(item?.productId?.price * item.quantity).toFixed(2)}</p>
                   <p className="text-sm text-gray-600">Stock: {item?.productId?.availableQuantity}</p>
                 </div>
                 <div className="flex items-center">
                   <button
                     className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
-                    onClick={() => handleUpdateQuantity(item, item.quantity - 1)}
-                    disabled={item.quantity <= 1}
+                    onClick={() => handleUpdateQuantity(item, item?.quantity - 1)}
+                    disabled={item?.quantity <= 1}
                   >
                     -
                   </button>
                   <span className="mx-2">{item.quantity}</span>
                   <button
                     className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 transition"
-                    onClick={() => handleUpdateQuantity(item, item.quantity + 1)}
+                    onClick={() => handleUpdateQuantity(item, item?.quantity + 1)}
                     disabled={item.quantity >= item?.productId?.availableQuantity}
                   >
                     +

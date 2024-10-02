@@ -7,7 +7,7 @@ const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navbar */}
-      <header className="h-16">
+      <header className=" h-full lg:h-16">
         <MYNavbar />
       </header>
 

@@ -22,20 +22,20 @@ const checkoutApi = baseApi.injectEndpoints({
     // Handle Stripe payment processing
     processStripePayment: builder.mutation({
       query: (paymentData) => ({
-        url: '/checkouts/stripe-payment',
+        url: '/checkouts/create-payment-intent',
         method: 'POST',
         body: paymentData, // Send payment details for Stripe
       }),
     }),
 
-    // Handle Cash on Delivery payment processing
-    processCODPayment: builder.mutation({
-      query: (orderData) => ({
-        url: '/checkouts/cod-payment',
-        method: 'POST',
-        body: orderData, // Send order details for Cash on Delivery
-      }),
-    }),
+    // // Handle Cash on Delivery payment processing
+    // processCODPayment: builder.mutation({
+    //   query: (orderData) => ({
+    //     url: '/checkouts/cod-payment',
+    //     method: 'POST',
+    //     body: orderData, // Send order details for Cash on Delivery
+    //   }),
+    // }),
 
     // Validate stock before proceeding to payment
     validateStock: builder.mutation({
@@ -52,6 +52,5 @@ export const {
   useGetCheckoutDetailsQuery,
   useSubmitCheckoutMutation,
   useProcessStripePaymentMutation,
-  useProcessCODPaymentMutation,
   useValidateStockMutation,
 } = checkoutApi;

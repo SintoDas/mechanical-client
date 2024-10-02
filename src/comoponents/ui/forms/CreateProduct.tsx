@@ -4,6 +4,7 @@ import axios from 'axios';
 import { TProduct } from '../../../types';
 import { useAddProductMutation } from '../../../redux/features/product/productsApi';
 import { toast } from 'sonner'; // Import Sonner components
+import { imgApi } from '../../../config/config';
 
 const CreateProduct: React.FC = () => {
   const [addProduct] = useAddProductMutation();
@@ -17,7 +18,7 @@ const CreateProduct: React.FC = () => {
   const [imgUrl, setImgUrl] = useState<string>('');
 
   // Optional: Replace with your ImgBB API key
-  const imgbbAPIKey = '96f69d1a403cf9d18c0afb2873019c21';
+  const imgbbAPIKey =imgApi;
 
   // Form submission handler
   const onSubmit: SubmitHandler<TProduct> = async (data) => {
@@ -35,7 +36,8 @@ const CreateProduct: React.FC = () => {
       if (response) {
         toast.success('Product added successfully!'); // Show success notification
       }
-    } catch (error: any) {
+    } catch (error) {
+      console.log(error)
       toast.error('Failed to add product. Please try again.'); // Show error notification
     }
 

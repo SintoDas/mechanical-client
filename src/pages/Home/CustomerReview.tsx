@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Import the carousel styles
+import { motion } from 'framer-motion'; // Import motion from Framer Motion
 
 import logo1 from "../../assets/keyboard2 (1).jpg";
 import logo2 from "../../assets/keyboard2 (2).jpg";
@@ -48,7 +49,14 @@ const CustomerReviews: React.FC = () => {
                 className="max-w-2xl mx-auto relative"
             >
                 {reviews.map((review) => (
-                    <div key={review.id} className="relative">
+                    <motion.div 
+                        key={review.id} 
+                        className="relative"
+                        initial={{ opacity: 0, y: 20 }} // Initial state
+                        animate={{ opacity: 1, y: 0 }}   // Animation state
+                        exit={{ opacity: 0, y: -20 }}     // Exit animation state
+                        transition={{ duration: 0.5 }}    // Transition effect
+                    >
                         <img
                             src={review.image}
                             alt={review.name}
@@ -58,7 +66,7 @@ const CustomerReviews: React.FC = () => {
                             <h3 className="text-lg font-semibold text-white text-center">{review.name}</h3>
                             <p className="text-white text-center">{review.review}</p>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </Carousel>
         </div>

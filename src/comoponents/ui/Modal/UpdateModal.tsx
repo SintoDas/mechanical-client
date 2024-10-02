@@ -5,6 +5,7 @@ import { useUpdateProductMutation } from "../../../redux/features/product/produc
 import axios from "axios";
 import { useEffect } from "react";
 import { toast } from "sonner"; // For toast notifications
+import { imgApi } from "../../../config/config";
 
 interface UpdateModalProps {
   updateModalOpen: boolean;
@@ -53,7 +54,7 @@ export default function UpdateModal({
         formData,
         {
           params: {
-            key: "96f69d1a403cf9d18c0afb2873019c21", // Replace with your ImageBB API Key
+            key: imgApi, // Replace with your ImageBB API Key
           },
         }
       );
@@ -69,9 +70,9 @@ export default function UpdateModal({
     // Convert price, availableQuantity, and rating to numbers
     const updatedData = {
       ...data,
-      price: parseFloat(data.price), // Convert price to a number
-      availableQuantity: parseInt(data.availableQuantity), // Convert available quantity to a number
-      rating: parseFloat(data.rating), // Convert rating to a number
+      price: parseFloat(data?.price), // Convert price to a number
+      availableQuantity: parseInt(data?.availableQuantity), // Convert available quantity to a number
+      rating: parseFloat(data?.rating), // Convert rating to a number
     };
 
     try {
